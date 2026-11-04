@@ -50,11 +50,14 @@ namespace RaidPad
         private static MethodInfo centerOnPlayer;
 
         private static PropertyInfo zoomMain;
+        private static PropertyInfo zoomMin;
+        private static PropertyInfo zoomMax;
         private static PropertyInfo selectedLevel;
         private static MethodInfo scaledShiftMap;
         private static MethodInfo clampToMapBounds;
-        private static MethodInfo incrementalZoomInto;
-        private static MethodInfo selectTopLevel;
+        private static MethodInfo setMapZoom;
+        private static FieldInfo levelSlider;
+        private static MethodInfo changeLevelBy;
 
         /// <summary>True while the Dynamic Maps peek overlay is open.</summary>
         public static bool IsPeeking()
@@ -155,8 +158,20 @@ namespace RaidPad
 
             try
             {
+                // Dynamic Maps clamps every zoom to the range it computed from map size and mask,
+                // so zooming can never leave the area the map actually covers.
                 var currentZoom = (float)zoomMain.GetValue(view);
-                incrementalZoomInto.Invoke(view, new object[] { currentZoom * direction * 0.15f, Vector2.zero, 0f });
+                var minZoom = (float)zoomMin.GetValue(view);
+                var maxZoom = (float)zoomMax.GetValue(view);
+                var targetZoom = Mathf.Clamp(currentZoom * (1f + direction * 0.15f), minZoom, maxZoom);
+
+                if (Mathf.Approximately(targetZoom, currentZoom))
+                {
+                    return;
+                }
+
+                setMapZoom.Invoke(view, new object[] { targetZoom, 0f, true, false });
+                clampToMapBounds.Invoke(view, null);
             }
             catch (Exception ex)
             {
@@ -164,19 +179,20 @@ namespace RaidPad
             }
         }
 
-        /// <summary>Changes the map level (floor) by one.</summary>
+        /// <summary>Changes the map level (floor) by one, clamped to the levels the map has.</summary>
         public static void ChangeLevel(int direction)
         {
-            var view = GetMapView();
-            if (view == null)
+            var screen = GetMapScreen();
+            if (screen == null)
             {
                 return;
             }
 
             try
             {
-                var level = (int)selectedLevel.GetValue(view);
-                selectTopLevel.Invoke(view, new object[] { level + direction });
+                // the slider holds the level list of the current map and refuses to leave it
+                var slider = levelSlider.GetValue(screen);
+                changeLevelBy.Invoke(slider, new object[] { direction });
             }
             catch (Exception ex)
             {
@@ -239,6 +255,29 @@ namespace RaidPad
             }
 
             return cachedPeek;
+        }
+
+        private static object GetMapScreen()
+        {
+            if (!Resolve())
+            {
+                return null;
+            }
+
+            var component = FindPeek();
+            if (component == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                return mapScreen.GetValue(component);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private static object GetMapView()
@@ -304,15 +343,21 @@ namespace RaidPad
             centerOnPlayer = screenType.GetMethod("CenterOnPlayer", Any);
 
             zoomMain = viewType.GetProperty("ZoomMain", Any);
+            zoomMin = viewType.GetProperty("ZoomMin", Any);
+            zoomMax = viewType.GetProperty("ZoomMax", Any);
             selectedLevel = viewType.GetProperty("SelectedLevel", Any);
             scaledShiftMap = viewType.GetMethod("ScaledShiftMap", Any);
             clampToMapBounds = viewType.GetMethod("ClampToMapBounds", Any);
-            incrementalZoomInto = viewType.GetMethod("IncrementalZoomInto", Any);
-            selectTopLevel = viewType.GetMethod("SelectTopLevel", Any);
+            setMapZoom = viewType.GetMethod("SetMapZoom", Any);
+
+            levelSlider = screenType.GetField("_levelSelectSlider", Any);
+            var sliderType = FindType("DynamicMaps.UI.Controls.LevelSelectSlider");
+            changeLevelBy = sliderType?.GetMethod("ChangeLevelBy", Any);
 
             if (isPeeking == null || mapScreen == null || beginPeek == null || endPeek == null ||
                 saveMainMapPos == null || mapView == null || scaledShiftMap == null ||
-                incrementalZoomInto == null || selectTopLevel == null || centerOnPlayer == null)
+                setMapZoom == null || zoomMin == null || zoomMax == null ||
+                levelSlider == null || changeLevelBy == null || centerOnPlayer == null)
             {
                 RaidPadPlugin.Log.LogWarning(
                     "RaidPad: Dynamic Maps was found but its API does not match what RaidPad expects - map combo disabled");
