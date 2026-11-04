@@ -1705,7 +1705,8 @@ namespace RaidPad
             RaidPadSets["RB"].Add(ERaidPadButton.LEFT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.ToggleLeanLeft), ERaidPadPressType.Press, 1) });
             RaidPadSets["RB"].Add(ERaidPadButton.RIGHT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.ToggleLeanRight), ERaidPadPressType.Press, 1) });
 
-            RaidPadSets["RB"].Add(ERaidPadButton.BACK, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.PauseRaid), ERaidPadPressType.Press, 1) });
+            RaidPadSets["RB"].Add(ERaidPadButton.BACK, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.SwitchHeadLight), ERaidPadPressType.Press, 1) });
+            RaidPadSets["RB"][ERaidPadButton.BACK].Add(new RaidPadButtonBind(new RaidPadCommand(ECommand.ToggleHeadLight), ERaidPadPressType.Hold, 1));
 
 
             RaidPadSets["RB"].Add(ERaidPadButton.LS, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.LeftStanceToggle), ERaidPadPressType.Press, 1) });
@@ -1728,6 +1729,7 @@ namespace RaidPad
             RaidPadSets["LB_RB"][ERaidPadButton.X].Add(new RaidPadButtonBind(new List<RaidPadCommand> { new RaidPadCommand(ECommand.SelectFastSlot0), new RaidPadCommand(ERaidPadCommand.DisableSet, "HealingLimbSelector") }, ERaidPadPressType.Release, 3));
             RaidPadSets["LB_RB"].Add(ERaidPadButton.Y, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.DisplayTimer), ERaidPadPressType.Press, 3) });
             RaidPadSets["LB_RB"][ERaidPadButton.Y].Add(new RaidPadButtonBind(new RaidPadCommand(ECommand.DisplayTimerAndExits), ERaidPadPressType.DoubleClick, 3));
+            RaidPadSets["LB_RB"].Add(ERaidPadButton.BACK, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.PauseRaid), ERaidPadPressType.Press, 3) });
 
             RaidPadSets.Add("ActionPanel", new Dictionary<ERaidPadButton, List<RaidPadButtonBind>>());
             RaidPadSets["ActionPanel"].Add(ERaidPadButton.X, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.BeginInteracting), ERaidPadPressType.Press, 10) });
@@ -5304,6 +5306,9 @@ namespace RaidPad
                         break;
                     case ERaidPadCommand.NextTab:
                         Actions.Add("NextTab");
+                        break;
+                    case ERaidPadCommand.PauseRaid:
+                        Actions.Add("Pause");
                         break;
                 }
             }
