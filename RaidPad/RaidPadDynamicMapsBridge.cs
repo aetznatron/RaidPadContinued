@@ -33,6 +33,8 @@ namespace RaidPad
 
         private static Type peekType;
         private static Type screenType;
+        private static Component cachedPeek;
+        private static float nextPeekScan;
 
         private static PropertyInfo isPeeking;
         private static PropertyInfo showingMiniMap;
@@ -207,16 +209,36 @@ namespace RaidPad
             }
         }
 
+        /// <summary>
+        /// Cached lookup: FindObjectOfType() walks every object in the scene and must not run per
+        /// frame (it cost ~90 % of the frame rate when called from Update). The component lives for
+        /// the whole raid, and Unity's == null also reports a destroyed object, so a rescan only
+        /// happens after the raid ends and the object is gone - at most once a second.
+        /// </summary>
         private static Component FindPeek()
         {
-            try
+            if (cachedPeek != null)
             {
-                return UnityEngine.Object.FindObjectOfType(peekType) as Component;
+                return cachedPeek;
             }
-            catch
+
+            if (Time.unscaledTime < nextPeekScan)
             {
                 return null;
             }
+
+            nextPeekScan = Time.unscaledTime + 1f;
+
+            try
+            {
+                cachedPeek = UnityEngine.Object.FindObjectOfType(peekType) as Component;
+            }
+            catch
+            {
+                cachedPeek = null;
+            }
+
+            return cachedPeek;
         }
 
         private static object GetMapView()
