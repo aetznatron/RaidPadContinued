@@ -314,6 +314,19 @@
         "PressType": "Press",
         "Priority": -1
       }
+    ],
+    "MENU": [
+      {
+        "RaidPadCommands": [
+          {
+            "Command": "MapPeek",
+            "InputTree": "None",
+            "RaidPadSet": ""
+          }
+        ],
+        "PressType": "Press",
+        "Priority": 0
+      }
     ]
   },
   "RaidPadSets": {
@@ -1726,6 +1739,190 @@
           ],
           "PressType": "Press",
           "Priority": 50
+        }
+      ]
+    },
+    "MapOverlay": {
+      "MENU": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapPeek",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "UP": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapPanUp",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "DOWN": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapPanDown",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "LEFT": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapPanLeft",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "RIGHT": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapPanRight",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "LT": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapZoomOut",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "RT": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapZoomIn",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "Y": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapCenter",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "LS": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapLevelUp",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "RS": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapLevelDown",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "A": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "None",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "B": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "None",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "X": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "None",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "BACK": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "None",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
         }
       ]
     }

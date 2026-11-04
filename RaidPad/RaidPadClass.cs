@@ -688,6 +688,19 @@ namespace RaidPad
                 menuCursorWasActive = false;
             }
 
+            // Dynamic Maps peek overlay: keep the MapOverlay set in sync with the mod's own state
+            if (RaidPadDynamicMapsBridge.IsPeeking())
+            {
+                if (!ActiveRaidPadSets.Contains("MapOverlay"))
+                {
+                    EnableSet("MapOverlay");
+                }
+            }
+            else if (ActiveRaidPadSets.Contains("MapOverlay"))
+            {
+                DisableSet("MapOverlay");
+            }
+
             if (LeftTrigger > RaidPadPlugin.LTDeadzone.Value)
             {
                 if (!LT)
@@ -1731,6 +1744,23 @@ namespace RaidPad
             RaidPadSets["LB_RB"][ERaidPadButton.Y].Add(new RaidPadButtonBind(new RaidPadCommand(ECommand.DisplayTimerAndExits), ERaidPadPressType.DoubleClick, 3));
             RaidPadSets["LB_RB"].Add(ERaidPadButton.BACK, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.PauseRaid), ERaidPadPressType.Press, 3) });
 
+            RaidPadSets.Add("MapOverlay", new Dictionary<ERaidPadButton, List<RaidPadButtonBind>>());
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.MENU, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapPeek), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.UP, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapPanUp), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.DOWN, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapPanDown), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.LEFT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapPanLeft), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.RIGHT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapPanRight), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.LT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapZoomOut), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.RT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapZoomIn), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.Y, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapCenter), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.LS, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapLevelUp), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.RS, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapLevelDown), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.A, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.None), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.B, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.None), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.X, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.None), ERaidPadPressType.Press, 25) });
+            RaidPadSets["MapOverlay"].Add(ERaidPadButton.BACK, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.None), ERaidPadPressType.Press, 25) });
+
+
             RaidPadSets.Add("ActionPanel", new Dictionary<ERaidPadButton, List<RaidPadButtonBind>>());
             RaidPadSets["ActionPanel"].Add(ERaidPadButton.X, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.BeginInteracting), ERaidPadPressType.Press, 10) });
             RaidPadSets["ActionPanel"][ERaidPadButton.X].Add(new RaidPadButtonBind(new RaidPadCommand(ECommand.EndInteracting), ERaidPadPressType.Release, 10));
@@ -1849,6 +1879,7 @@ namespace RaidPad
             RaidPadButtonBinds[ERaidPadButton.LEFT].Add(new RaidPadButtonBind(new RaidPadCommand(ECommand.ChangeScope), ERaidPadPressType.Hold, -1));
             RaidPadButtonBinds.Add(ERaidPadButton.RIGHT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.ChangeScope), ERaidPadPressType.Press, -1) });
             RaidPadButtonBinds.Add(ERaidPadButton.BACK, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.ToggleInventory), ERaidPadPressType.Press, -1) });
+            RaidPadButtonBinds.Add(ERaidPadButton.MENU, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapPeek), ERaidPadPressType.Press, 0) });
 
             ControllerPresetJsonClass controllerPresetJsonClass = new ControllerPresetJsonClass();
             controllerPresetJsonClass.RaidPadButtonBinds = RaidPadButtonBinds;
@@ -2237,6 +2268,36 @@ namespace RaidPad
                         break;
                     case ERaidPadCommand.PauseRaid:
                         RaidPadPauseBridge.Toggle();
+                        break;
+                    case ERaidPadCommand.MapPeek:
+                        RaidPadDynamicMapsBridge.TogglePeek();
+                        break;
+                    case ERaidPadCommand.MapPanUp:
+                        RaidPadDynamicMapsBridge.Pan(0f, 1f);
+                        break;
+                    case ERaidPadCommand.MapPanDown:
+                        RaidPadDynamicMapsBridge.Pan(0f, -1f);
+                        break;
+                    case ERaidPadCommand.MapPanLeft:
+                        RaidPadDynamicMapsBridge.Pan(-1f, 0f);
+                        break;
+                    case ERaidPadCommand.MapPanRight:
+                        RaidPadDynamicMapsBridge.Pan(1f, 0f);
+                        break;
+                    case ERaidPadCommand.MapZoomIn:
+                        RaidPadDynamicMapsBridge.Zoom(1);
+                        break;
+                    case ERaidPadCommand.MapZoomOut:
+                        RaidPadDynamicMapsBridge.Zoom(-1);
+                        break;
+                    case ERaidPadCommand.MapCenter:
+                        RaidPadDynamicMapsBridge.CenterOnPlayer();
+                        break;
+                    case ERaidPadCommand.MapLevelUp:
+                        RaidPadDynamicMapsBridge.ChangeLevel(1);
+                        break;
+                    case ERaidPadCommand.MapLevelDown:
+                        RaidPadDynamicMapsBridge.ChangeLevel(-1);
                         break;
                 }
             }
@@ -5310,6 +5371,36 @@ namespace RaidPad
                     case ERaidPadCommand.PauseRaid:
                         Actions.Add("Pause");
                         break;
+                    case ERaidPadCommand.MapPeek:
+                        Actions.Add("Map");
+                        break;
+                    case ERaidPadCommand.MapPanUp:
+                        Actions.Add("Map up");
+                        break;
+                    case ERaidPadCommand.MapPanDown:
+                        Actions.Add("Map down");
+                        break;
+                    case ERaidPadCommand.MapPanLeft:
+                        Actions.Add("Map left");
+                        break;
+                    case ERaidPadCommand.MapPanRight:
+                        Actions.Add("Map right");
+                        break;
+                    case ERaidPadCommand.MapZoomIn:
+                        Actions.Add("Map zoom in");
+                        break;
+                    case ERaidPadCommand.MapZoomOut:
+                        Actions.Add("Map zoom out");
+                        break;
+                    case ERaidPadCommand.MapCenter:
+                        Actions.Add("Map center");
+                        break;
+                    case ERaidPadCommand.MapLevelUp:
+                        Actions.Add("Map level up");
+                        break;
+                    case ERaidPadCommand.MapLevelDown:
+                        Actions.Add("Map level down");
+                        break;
                 }
             }
             return Actions;
@@ -5862,7 +5953,17 @@ namespace RaidPad
         SplitDragged = 37,
         PreviousTab = 38,
         NextTab = 39,
-        PauseRaid = 40
+        PauseRaid = 40,
+        MapPeek = 41,
+        MapPanUp = 42,
+        MapPanDown = 43,
+        MapPanLeft = 44,
+        MapPanRight = 45,
+        MapZoomIn = 46,
+        MapZoomOut = 47,
+        MapCenter = 48,
+        MapLevelUp = 49,
+        MapLevelDown = 50
     }
     public enum ERaidPadUseStick
     {
