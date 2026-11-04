@@ -1760,7 +1760,7 @@
         {
           "RaidPadCommands": [
             {
-              "Command": "MapPanUp",
+              "Command": "MapPanDown",
               "InputTree": "None",
               "RaidPadSet": ""
             }
@@ -1773,7 +1773,7 @@
         {
           "RaidPadCommands": [
             {
-              "Command": "MapPanDown",
+              "Command": "MapPanUp",
               "InputTree": "None",
               "RaidPadSet": ""
             }
@@ -1786,7 +1786,7 @@
         {
           "RaidPadCommands": [
             {
-              "Command": "MapPanLeft",
+              "Command": "MapPanRight",
               "InputTree": "None",
               "RaidPadSet": ""
             }
@@ -1799,33 +1799,7 @@
         {
           "RaidPadCommands": [
             {
-              "Command": "MapPanRight",
-              "InputTree": "None",
-              "RaidPadSet": ""
-            }
-          ],
-          "PressType": "Press",
-          "Priority": 25
-        }
-      ],
-      "LT": [
-        {
-          "RaidPadCommands": [
-            {
-              "Command": "MapZoomOut",
-              "InputTree": "None",
-              "RaidPadSet": ""
-            }
-          ],
-          "PressType": "Press",
-          "Priority": 25
-        }
-      ],
-      "RT": [
-        {
-          "RaidPadCommands": [
-            {
-              "Command": "MapZoomIn",
+              "Command": "MapPanLeft",
               "InputTree": "None",
               "RaidPadSet": ""
             }
@@ -1913,6 +1887,58 @@
         }
       ],
       "BACK": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "None",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "LB": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapZoomOut",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "RB": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "MapZoomIn",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "LT": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "None",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 25
+        }
+      ],
+      "RT": [
         {
           "RaidPadCommands": [
             {
