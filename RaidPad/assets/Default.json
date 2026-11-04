@@ -1924,32 +1924,6 @@
           "PressType": "Press",
           "Priority": 25
         }
-      ],
-      "LT": [
-        {
-          "RaidPadCommands": [
-            {
-              "Command": "None",
-              "InputTree": "None",
-              "RaidPadSet": ""
-            }
-          ],
-          "PressType": "Press",
-          "Priority": 25
-        }
-      ],
-      "RT": [
-        {
-          "RaidPadCommands": [
-            {
-              "Command": "None",
-              "InputTree": "None",
-              "RaidPadSet": ""
-            }
-          ],
-          "PressType": "Press",
-          "Priority": 25
-        }
       ]
     }
   }

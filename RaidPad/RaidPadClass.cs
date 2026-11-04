@@ -1755,8 +1755,6 @@ namespace RaidPad
             RaidPadSets["MapOverlay"].Add(ERaidPadButton.Y, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapCenter), ERaidPadPressType.Press, 25) });
             RaidPadSets["MapOverlay"].Add(ERaidPadButton.LS, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapLevelUp), ERaidPadPressType.Press, 25) });
             RaidPadSets["MapOverlay"].Add(ERaidPadButton.RS, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapLevelDown), ERaidPadPressType.Press, 25) });
-            RaidPadSets["MapOverlay"].Add(ERaidPadButton.LT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.None), ERaidPadPressType.Press, 25) });
-            RaidPadSets["MapOverlay"].Add(ERaidPadButton.RT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.None), ERaidPadPressType.Press, 25) });
             RaidPadSets["MapOverlay"].Add(ERaidPadButton.A, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.None), ERaidPadPressType.Press, 25) });
             RaidPadSets["MapOverlay"].Add(ERaidPadButton.B, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.None), ERaidPadPressType.Press, 25) });
             RaidPadSets["MapOverlay"].Add(ERaidPadButton.X, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.None), ERaidPadPressType.Press, 25) });
