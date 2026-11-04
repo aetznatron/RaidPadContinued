@@ -901,6 +901,19 @@
           "PressType": "DoubleClick",
           "Priority": 3
         }
+      ],
+      "BACK": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "PauseRaid",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 3
+        }
       ]
     },
     "ActionPanel": {
