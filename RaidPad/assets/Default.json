@@ -927,6 +927,19 @@
           "PressType": "Press",
           "Priority": 3
         }
+      ],
+      "MENU": [
+        {
+          "RaidPadCommands": [
+            {
+              "Command": "ComboKey",
+              "InputTree": "None",
+              "RaidPadSet": ""
+            }
+          ],
+          "PressType": "Press",
+          "Priority": 3
+        }
       ]
     },
     "ActionPanel": {

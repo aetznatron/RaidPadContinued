@@ -40,6 +40,9 @@ namespace RaidPad
         public static ConfigEntry<float> MenuScrollSpeed { get; set; }
         public static ConfigEntry<KeyCode> MenuRotateKey { get; set; }
 
+        // Keybinds
+        public static ConfigEntry<KeyboardShortcut> ComboKey { get; set; }
+
         // Input
         public static ConfigEntry<float> LSDeadzone { get; set; }
         public static ConfigEntry<float> RSDeadzone { get; set; }
@@ -125,6 +128,8 @@ namespace RaidPad
             MenuCursorSpeed = Config.Bind("Menu Cursor", "Cursor Speed", 1600f, new ConfigDescription("Cursor movement speed in pixels per second at full right-stick deflection.", new AcceptableValueRange<float>(200f, 5000f), new ConfigurationManagerAttributes { Order = 80 }));
             MenuScrollSpeed = Config.Bind("Menu Cursor", "Scroll Speed", 15f, new ConfigDescription("Scroll-wheel notches per second at full left-stick deflection.", new AcceptableValueRange<float>(1f, 60f), new ConfigurationManagerAttributes { Order = 70 }));
             MenuRotateKey = Config.Bind("Menu Cursor", "Rotate Key", KeyCode.R, new ConfigDescription("Keystroke sent when you press X / Square in menus to rotate the held item. Must match EFT's 'Rotate item' bind (default R).", null, new ConfigurationManagerAttributes { Order = 60 }));
+
+            ComboKey = Config.Bind("Keybinds", "LB+RB+Start Key", new KeyboardShortcut(KeyCode.None), new ConfigDescription("Keystroke RaidPad sends when you press LB+RB+Start in raid. Set any key or combination (e.g. F4 or Ctrl+F4) to trigger another mod's hotkey. Leave empty to disable.", null, new ConfigurationManagerAttributes { Order = 200 }));
 
             LSDeadzone = Config.Bind("Inputs", "LSDeadzone", 0.25f, new ConfigDescription("", null, new ConfigurationManagerAttributes { Order = 150, IsAdvanced = true }));
             RSDeadzone = Config.Bind("Inputs", "RSDeadzone", 0.25f, new ConfigDescription("", null, new ConfigurationManagerAttributes { Order = 140, IsAdvanced = true }));

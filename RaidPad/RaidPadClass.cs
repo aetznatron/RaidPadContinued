@@ -1743,6 +1743,7 @@ namespace RaidPad
             RaidPadSets["LB_RB"].Add(ERaidPadButton.Y, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.DisplayTimer), ERaidPadPressType.Press, 3) });
             RaidPadSets["LB_RB"][ERaidPadButton.Y].Add(new RaidPadButtonBind(new RaidPadCommand(ECommand.DisplayTimerAndExits), ERaidPadPressType.DoubleClick, 3));
             RaidPadSets["LB_RB"].Add(ERaidPadButton.BACK, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.PauseRaid), ERaidPadPressType.Press, 3) });
+            RaidPadSets["LB_RB"].Add(ERaidPadButton.MENU, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.ComboKey), ERaidPadPressType.Press, 3) });
 
             RaidPadSets.Add("MapOverlay", new Dictionary<ERaidPadButton, List<RaidPadButtonBind>>());
             RaidPadSets["MapOverlay"].Add(ERaidPadButton.MENU, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.MapPeek), ERaidPadPressType.Press, 25) });
@@ -2298,6 +2299,9 @@ namespace RaidPad
                         break;
                     case ERaidPadCommand.MapLevelDown:
                         RaidPadDynamicMapsBridge.ChangeLevel(-1);
+                        break;
+                    case ERaidPadCommand.ComboKey:
+                        RaidPadKeySender.Send(RaidPadPlugin.ComboKey.Value);
                         break;
                 }
             }
@@ -5401,6 +5405,9 @@ namespace RaidPad
                     case ERaidPadCommand.MapLevelDown:
                         Actions.Add("Map level down");
                         break;
+                    case ERaidPadCommand.ComboKey:
+                        Actions.Add(RaidPadPlugin.ComboKey.Value.MainKey == KeyCode.None ? "Combo key (unset)" : "Combo: " + RaidPadPlugin.ComboKey.Value);
+                        break;
                 }
             }
             return Actions;
@@ -5963,7 +5970,8 @@ namespace RaidPad
         MapZoomOut = 47,
         MapCenter = 48,
         MapLevelUp = 49,
-        MapLevelDown = 50
+        MapLevelDown = 50,
+        ComboKey = 51
     }
     public enum ERaidPadUseStick
     {
