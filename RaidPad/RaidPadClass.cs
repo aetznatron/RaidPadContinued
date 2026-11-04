@@ -1705,8 +1705,8 @@ namespace RaidPad
             RaidPadSets["RB"].Add(ERaidPadButton.LEFT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.ToggleLeanLeft), ERaidPadPressType.Press, 1) });
             RaidPadSets["RB"].Add(ERaidPadButton.RIGHT, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.ToggleLeanRight), ERaidPadPressType.Press, 1) });
 
-            RaidPadSets["RB"].Add(ERaidPadButton.BACK, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.SwitchHeadLight), ERaidPadPressType.Press, 1) });
-            RaidPadSets["RB"][ERaidPadButton.BACK].Add(new RaidPadButtonBind(new RaidPadCommand(ECommand.ToggleHeadLight), ERaidPadPressType.Hold, 1));
+            RaidPadSets["RB"].Add(ERaidPadButton.BACK, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ERaidPadCommand.PauseRaid), ERaidPadPressType.Press, 1) });
+
 
             RaidPadSets["RB"].Add(ERaidPadButton.LS, new List<RaidPadButtonBind> { new RaidPadButtonBind(new RaidPadCommand(ECommand.LeftStanceToggle), ERaidPadPressType.Press, 1) });
 
@@ -2232,6 +2232,9 @@ namespace RaidPad
                         break;
                     case ERaidPadCommand.NextTab:
                         ControllerNextTab();
+                        break;
+                    case ERaidPadCommand.PauseRaid:
+                        RaidPadPauseBridge.Toggle();
                         break;
                 }
             }
@@ -5853,7 +5856,8 @@ namespace RaidPad
         CancelDrag = 36,
         SplitDragged = 37,
         PreviousTab = 38,
-        NextTab = 39
+        NextTab = 39,
+        PauseRaid = 40
     }
     public enum ERaidPadUseStick
     {

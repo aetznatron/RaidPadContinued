@@ -11,7 +11,7 @@
     <DebugType>none</DebugType>
     <Deterministic>true</Deterministic>
     <NoWarn>$(NoWarn);CS0618;CS0612;CS0414;CS0169;CS0649</NoWarn>
-    <ModVersion>0.7.1</ModVersion>
+    <ModVersion>0.7.2</ModVersion>
     <!--
       Root of the SPT installation (the folder containing EscapeFromTarkov.exe).
       Override per build: /p:SPTGamePath="D:\Games\SPT 4.1.6 essential"
