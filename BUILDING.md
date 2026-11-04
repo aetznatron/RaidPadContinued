@@ -4,6 +4,9 @@ RaidPad is a single SDK-style project (`net472`) that compiles against the game'
 managed assemblies, the SPT plugin assemblies and BepInEx. None of those binaries
 are part of this repository.
 
+The repository is called `RaidPadContinued`; the mod itself is still RaidPad - plugin
+GUID `com.thablackunicorn.raidpad`, `RaidPad.dll`, folder `BepInEx\plugins\RaidPad`.
+
 ## Requirements
 
 * Windows with
