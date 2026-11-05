@@ -7,6 +7,8 @@ are part of this repository.
 The repository is called `RaidPadContinued`; the mod itself is still RaidPad - plugin
 GUID `com.thablackunicorn.raidpad`, `RaidPad.dll`, folder `BepInEx\plugins\RaidPad`.
 
+Every button binding of the current release is documented in [`docs/BINDS.md`](docs/BINDS.md).
+
 ## Requirements
 
 * Windows with
