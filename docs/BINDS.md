@@ -4,6 +4,8 @@ Xbox One controller · SPT 4.1.6 · v0.7.2
 
 `P` = set priority (higher wins) · **hold** / **double** = secondary binding
 
+One-page version: [`cheatsheet.html`](cheatsheet.html) · [`cheatsheet.png`](cheatsheet.png)
+
 ## Base layout — raid, no shoulder held
 
 | Input | Action |
